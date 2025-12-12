@@ -371,4 +371,11 @@ trait EntityTrait {
         }
     }
 
+    public function __call($method, $arguments) {
+        if (method_exists($this->_getModel(), $method)) {
+            return $this->_getModel()->{$method}(...$arguments);
+        }
+        throw new \BadMethodCallException("Method {$method} does not exist on data model.");
+    }
+
 }
